@@ -1,6 +1,6 @@
 # Validation record
 
-Validated locally on 2026-09-16 using Node.js 24.19.0 and npm 10.9.8.
+Initial validation on 2026-09-16 used Node.js 24.19.0 and npm 10.9.8; the project subsequently migrated to pnpm (see below).
 
 - Clean `npm ci`: passed; dependency audit reported zero vulnerabilities at validation time.
 - TypeScript strict compilation: passed.
@@ -45,7 +45,7 @@ No implementation incompatibility was found in the exercised endpoints. Both tes
 
 The initial test did not cover checkpoint locking/replacement/routing or downloadable content; the follow-up below verifies those operations. Annotation mutations, filter mutations, administrative controls, Helper interactions, successful GraphQL data access, and report downloads remain unverified live. All 46 documented operations retain mock wire-format coverage. The supplied docs do not resolve every installed-version detail; see README.md for remaining protocol ambiguities.
 
-A credential-free live summary is in `docs/live-results.json`. Repeatable live checks are provided by `scripts/live-smoke.mjs` (`npm run test:live`).
+A credential-free live summary is in `docs/live-results.json`. Repeatable live checks are provided by `scripts/live-smoke.mjs` (`pnpm run test:live`).
 
 The machine's default Volta configuration selects Node 10. Validation used the available Node 24 executable explicitly. The package requires Node 22 or newer and does not change the machine's global Node configuration.
 
@@ -120,3 +120,16 @@ On 2026-09-16 the user added the test account to the Administrators group. A fre
 6. Logout succeeded.
 
 The complete stop/start cycle is now live-verified. The test flow was left running and no other flows were modified. No implementation changes were required. See `docs/flow-control-live-results.json` for structured results.
+
+
+## pnpm migration
+
+The project now pins pnpm 11.19.0 and requires Node.js 22.13 or newer. The existing dependency lock was imported into `pnpm-lock.yaml`; all 95 unique dependency name/version pairs were preserved. The npm lockfile was removed from the project. Setup instructions and CI now use pnpm, with CI testing Node 22 and 24.
+
+Validation under Node.js 24.19.0 and pnpm 11.19.0:
+
+- Fresh `pnpm install --frozen-lockfile` with no existing node_modules: passed.
+- `pnpm test`: compilation and all 13 tests passed, including the MCP stdio child-process test.
+- `pnpm run check:coverage`: all 46 documented operations passed.
+
+Earlier npm references in this validation record describe historical runs, not the current installation workflow.

@@ -2,14 +2,16 @@
 
 A TypeScript MCP server exposing **all 46 operations** in the supplied Enfocus Switch Web Services 24 and 24.1 documentation: 35 Web Services REST operations, the dashboard GraphQL endpoint, and 10 Switch Helper operations. Each operation has its own discoverable tool, validated arguments, and an explicit HTTP mapping.
 
-Runs locally over MCP **stdio** using the official TypeScript SDK. Requires **Node.js 22 or newer**. A running Switch installation with Web Services enabled and an authorized Switch account is required to use the tools. Helper tools require Switch Helper on the machine addressed by `SWITCH_HELPER_URL`; selecting or editing jobs can display native UI there.
+Runs locally over MCP **stdio** using the official TypeScript SDK. Requires **Node.js 22.13 or newer**. A running Switch installation with Web Services enabled and an authorized Switch account is required to use the tools. Helper tools require Switch Helper on the machine addressed by `SWITCH_HELPER_URL`; selecting or editing jobs can display native UI there.
 
 ## Install and run
 
+Use pnpm 11.19.0, pinned in `package.json`. Commit `pnpm-lock.yaml` when dependencies change.
+
 ```sh
-npm ci
-npm run build
-npm test
+pnpm install --frozen-lockfile
+pnpm run build
+pnpm test
 ```
 
 Configure a generic MCP client to launch the compiled server:
@@ -152,7 +154,7 @@ The supplied 24 and 24.1 catalogs contain identical operation and parameter defi
 
 ## Validation and maintenance
 
-`npm test` compiles the project and runs local HTTP mock tests covering all 46 route/method/body combinations, authentication and secret redaction, uploads, optional paths, repeated query parameters, validation, error handling, limits, timeouts, cancellation, and redirects. A separate test launches a real child process and exercises MCP initialization, tools, resources, successful calls, and errors using the official SDK client.
+`pnpm test` compiles the project and runs local HTTP mock tests covering all 46 route/method/body combinations, authentication and secret redaction, uploads, optional paths, repeated query parameters, validation, error handling, limits, timeouts, cancellation, and redirects. A separate test launches a real child process and exercises MCP initialization, tools, resources, successful calls, and errors using the official SDK client.
 
 Live validation against a local Switch service on 2026-09-16 passed RSA login/logout, session ping, discovery, jobs, metadata, thumbnails, messages, and filter reads. A single file and a nested two-file folder submitted through the designated test flow successfully moved downstream. The official MCP SDK client also exercised the compiled server against that live service. See [the validation record](docs/VALIDATION.md).
 
@@ -162,7 +164,7 @@ GraphQL jobs access succeeded after Boards access was enabled for the account. L
 
 ### Repeat live checks
 
-Supply `SWITCH_USERNAME`, `SWITCH_PASSWORD`, and optionally `SWITCH_BASE_URL` through your shell or secret manager, then run `npm run test:live`. The live script uses an actual MCP stdio child process and performs login, reads, session refresh, and logout. It never prints credentials or download URLs. `SWITCH_LIVE_REPORT` optionally specifies an output JSON report path.
+Supply `SWITCH_USERNAME`, `SWITCH_PASSWORD`, and optionally `SWITCH_BASE_URL` through your shell or secret manager, then run `pnpm run test:live`. The live script uses an actual MCP stdio child process and performs login, reads, session refresh, and logout. It never prints credentials or download URLs. `SWITCH_LIVE_REPORT` optionally specifies an output JSON report path.
 
 Optional settings:
 
@@ -177,14 +179,14 @@ The script leaves a submitted test job in its flow, reports its ID, and never re
 To audit coverage against a downloaded `api_data.json`:
 
 ```sh
-npm run check:coverage -- /path/to/api_data.json
+pnpm run check:coverage /path/to/api_data.json
 ```
 
 To regenerate the catalog after reviewing documentation changes:
 
 ```sh
 python3 scripts/generate-catalog.py /path/to/api_data.json
-npm test
+pnpm test
 ```
 
 The generator is deterministic and retains explicit protocol corrections. Tests have an independent table of expected wire requests; expanding coverage requires updating that table and reviewing schema/location decisions. The manifest records the input file's SHA-256. Original vendor prose and sample source are not redistributed in this package.
