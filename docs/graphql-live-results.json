@@ -1,0 +1,56 @@
+{
+  "date": "2026-09-16",
+  "transport": "MCP stdio \u2192 live Switch GraphQL",
+  "permissions": {
+    "jobFinderAccess": true,
+    "viewBoardsAccess": true,
+    "reportingAccess": true,
+    "webservicesAccess": true,
+    "administratorAccess": false
+  },
+  "checks": [
+    {
+      "operation": "current jobs restricted to API Submit test",
+      "result": "passed",
+      "count": 0
+    },
+    {
+      "operation": "schema introspection",
+      "result": "passed",
+      "rootFields": [
+        "monitoring",
+        "sessions",
+        "flows",
+        "jobs",
+        "jobs_hist"
+      ]
+    },
+    {
+      "operation": "named operation with variables and completed jobs",
+      "result": "passed",
+      "count": 4,
+      "processingIds": [
+        "000G8",
+        "000G7",
+        "000GA",
+        "000G9"
+      ]
+    },
+    {
+      "operation": "jobs_hist for 2026-09-16 UTC grouped by flow",
+      "result": "passed",
+      "rows": 0
+    },
+    {
+      "operation": "logout",
+      "result": "passed"
+    }
+  ],
+  "conclusion": "Jobs GraphQL access succeeded after Boards access was enabled, with both jobFinderAccess and viewBoardsAccess true. Administrator access remained false.",
+  "limitations": [
+    "Does not determine whether read-only Boards permission alone suffices.",
+    "Historical query returned no rows; nonempty historical statistics not verified.",
+    "Monitoring and sessions queries were not executed."
+  ],
+  "subsequentFlowControlResult": "Passed after administrator membership was granted; see flow-control-live-results.json."
+}

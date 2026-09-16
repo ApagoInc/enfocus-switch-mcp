@@ -1,0 +1,33 @@
+{
+  "name": "enfocus-switch-mcp",
+  "version": "1.0.0",
+  "private": true,
+  "description": "MCP tools for all documented Enfocus Switch Web Services 24/24.1 operations",
+  "type": "module",
+  "bin": {
+    "enfocus-switch-mcp": "dist/index.js"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "docs"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "test": "tsc && node --test test/*.test.mjs",
+    "check:coverage": "node scripts/check-coverage.mjs",
+    "test:live": "node scripts/live-smoke.mjs"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.26.0",
+    "ajv": "^8.17.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.9.0"
+  }
+}

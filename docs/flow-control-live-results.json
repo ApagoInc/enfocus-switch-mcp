@@ -1,0 +1,30 @@
+{
+  "date": "2026-09-16",
+  "transport": "MCP stdio \u2192 live Switch REST API",
+  "flow": {
+    "id": "25",
+    "name": "API Submit test"
+  },
+  "administratorAccess": true,
+  "verifiedStates": [
+    "running",
+    "stopped",
+    "running"
+  ],
+  "stop": {
+    "result": "passed",
+    "response": {
+      "status": true
+    }
+  },
+  "start": {
+    "result": "passed",
+    "response": {
+      "status": true,
+      "flowStatus": "running"
+    }
+  },
+  "logout": "passed",
+  "finalStatus": "running",
+  "otherFlowsModified": false
+}

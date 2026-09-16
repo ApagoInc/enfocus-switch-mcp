@@ -1,0 +1,2260 @@
+[
+  {
+    "name": "switch_login_query",
+    "operation": "LoginQuery",
+    "method": "POST",
+    "path": "/login",
+    "service": "switch",
+    "fixedQuery": {},
+    "locations": {
+      "username": "body",
+      "password": "body",
+      "lang": "query"
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string",
+          "description": "Defaults to SWITCH_USERNAME."
+        },
+        "password": {
+          "type": "string",
+          "description": "Plaintext password; RSA encryption is performed locally. Prefer SWITCH_PASSWORD in the environment."
+        },
+        "lang": {
+          "type": "string",
+          "description": "Switch locale, for example enUS, deDE, or frFR."
+        }
+      },
+      "additionalProperties": false
+    },
+    "description": "Login Query.",
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "idempotentHint": false,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "switch_logout_query",
+    "operation": "LogoutQuery",
+    "method": "GET",
+    "path": "/logout",
+    "service": "switch",
+    "fixedQuery": {},
+    "locations": {
+      "lang": "query"
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "lang": {
+          "type": "string",
+          "description": "Switch locale, for example enUS, deDE, or frFR."
+        }
+      },
+      "additionalProperties": false
+    },
+    "description": "Logout Query.",
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "idempotentHint": false,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "switch_add_annotations",
+    "operation": "AddAnnotations",
+    "method": "POST",
+    "path": "/api/v1/flows/:id/annotations",
+    "service": "switch",
+    "fixedQuery": {},
+    "locations": {
+      "annotations": "body",
+      "id": "path",
+      "lang": "query"
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "annotations": {
+          "oneOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "x": {
+                    "type": "number"
+                  },
+                  "y": {
+                    "type": "number"
+                  }
+                },
+                "additionalProperties": false,
+                "required": [
+                  "type",
+                  "title",
+                  "description",
+                  "x",
+                  "y"
+                ]
+              }
+            },
+            {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "x": {
+                  "type": "number"
+                },
+                "y": {
+                  "type": "number"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "type",
+                "title",
+                "description",
+                "x",
+                "y"
+              ]
+            }
+          ]
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "lang": {
+          "type": "string",
+          "description": "Switch locale, for example enUS, deDE, or frFR."
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "annotations",
+        "id"
+      ]
+    },
+    "description": "Add Annotations.",
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "idempotentHint": false,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "switch_edit_annotation",
+    "operation": "EditAnnotation",
+    "method": "PUT",
+    "path": "/api/v1/flows/:id/annotations/:annotId",
+    "service": "switch",
+    "fixedQuery": {},
+    "locations": {
+      "annotation": "body",
+      "id": "path",
+      "annotId": "path",
+      "lang": "query"
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "annotation": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "x": {
+              "type": "number"
+            },
+            "y": {
+              "type": "number"
+            }
+          },
+          "additionalProperties": false
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "annotId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "lang": {
+          "type": "string",
+          "description": "Switch locale, for example enUS, deDE, or frFR."
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "annotation",
+        "id",
+        "annotId"
+      ]
+    },
+    "description": "Edit Annotation.",
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "idempotentHint": false,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "switch_get_flows",
+    "operation": "GetFlows",
+    "method": "GET",
+    "path": "/api/v1/flows",
+    "service": "switch",
+    "fixedQuery": {},
+    "locations": {
+      "fields": "query",
+      "ids": "query",
+      "lang": "query"
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "fields": {
+          "type": "string",
+          "description": "Comma-separated response field names; omitted means all available fields."
+        },
+        "ids": {
+          "type": "string",
+          "description": "Comma-separated identifiers. Omit only when the operation should affect or return all applicable items."
+        },
+        "lang": {
+          "type": "string",
+          "description": "Switch locale, for example enUS, deDE, or frFR."
+        }
+      },
+      "additionalProperties": false
+    },
+    "description": "Get Flows.",
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "switch_remove_annotations",
+    "operation": "RemoveAnnotations",
+    "method": "DELETE",
+    "path": "/api/v1/flows/:id/annotations/:annotId",
+    "service": "switch",
+    "fixedQuery": {},
+    "locations": {
+      "id": "path",
+      "annotId": "path",
+      "lang": "query"
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "annotId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "lang": {
+          "type": "string",
+          "description": "Switch locale, for example enUS, deDE, or frFR."
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id"
+      ]
+    },
+    "description": "Remove Annotations. Omitting annotId deletes ALL annotations in the flow.",
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "idempotentHint": false,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "switch_start_flow",
+    "operation": "StartFlow",
+    "method": "PUT",
+    "path": "/api/v1/flows/:id",
+    "service": "switch",
+    "fixedQuery": {
+      "action": "start"
+    },
+    "locations": {
+      "id": "path",
+      "lang": "query"
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "lang": {
+          "type": "string",
+          "description": "Switch locale, for example enUS, deDE, or frFR."
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id"
+      ]
+    },
+    "description": "Start Flow.",
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "idempotentHint": false,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "switch_stop_flow",
+    "operation": "StopFlow",
+    "method": "PUT",
+    "path": "/api/v1/flows/:id",
+    "service": "switch",
+    "fixedQuery": {
+      "action": "stop"
+    },
+    "locations": {
+      "id": "path",
+      "lang": "query"
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "lang": {
+          "type": "string",
+          "description": "Switch locale, for example enUS, deDE, or frFR."
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id"
+      ]
+    },
+    "description": "Stop Flow.",
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "idempotentHint": false,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "switch_get_job_metadata",
+    "operation": "GetJobMetadata",
+    "method": "GET",
+    "path": "/api/v1/job/metadata",
+    "service": "switch",
+    "fixedQuery": {},
+    "locations": {
+      "ids": "query",
+      "readonly": "query",
+      "lang": "query"
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "ids": {
+          "type": "string",
+          "description": "Comma-separated identifiers. Omit only when the operation should affect or return all applicable items."
+        },
+        "readonly": {
+          "type": "boolean",
+          "description": "Choose read-only or editable metadata; omit to return both."
+        },
+        "lang": {
+          "type": "string",
+          "description": "Switch locale, for example enUS, deDE, or frFR."
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "ids"
+      ]
+    },
+    "description": "Get Job Metadata.",
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "switch_job_download",
+    "operation": "JobDownload",
+    "method": "GET",
+    "path": "/api/v1/job/:id",
+    "service": "switch",
+    "fixedQuery": {},
+    "locations": {
+      "id": "path",
+      "lang": "query"
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "lang": {
+          "type": "string",
+          "description": "Switch locale, for example enUS, deDE, or frFR."
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id"
+      ]
+    },
+    "description": "Job Download. Returns a session-bound download URL, not file bytes.",
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "switch_job_report_download",
+    "operation": "JobReportDownload",
+    "method": "GET",
+    "path": "/api/v1/job/report/:id",
+    "service": "switch",
+    "fixedQuery": {},
+    "locations": {
+      "id": "path",
+      "lang": "query"
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "lang": {
+          "type": "string",
+          "description": "Switch locale, for example enUS, deDE, or frFR."
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id"
+      ]
+    },
+    "description": "Job Report Download. Returns a session-bound download URL, not file bytes.",
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "switch_lock_job",
+    "operation": "LockJob",
+    "method": "PUT",
+    "path": "/api/v1/job/:id",
+    "service": "switch",
+    "fixedQuery": {
+      "action": "lock"
+    },
+    "locations": {
+      "id": "path",
+      "lang": "query"
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "lang": {
+          "type": "string",
+          "description": "Switch locale, for example enUS, deDE, or frFR."
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id"
+      ]
+    },
+    "description": "Lock Job.",
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "idempotentHint": false,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "switch_post_job",
+    "operation": "PostJob",
+    "method": "POST",
+    "path": "/api/v1/job",
+    "service": "switch",
+    "fixedQuery": {},
+    "locations": {
+      "flowId": "body",
+      "objectId": "body",
+      "jobName": "body",
+      "origin": "body",
+      "created": "body",
+      "modified": "body",
+      "metadata": "body",
+      "lang": "query",
+      "files": "multipart"
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "flowId": {
+          "type": "string"
+        },
+        "objectId": {
+          "type": "string"
+        },
+        "jobName": {
+          "type": "string"
+        },
+        "origin": {
+          "type": "string"
+        },
+        "created": {
+          "type": "string"
+        },
+        "modified": {
+          "type": "string"
+        },
+        "metadata": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "name",
+              "value"
+            ]
+          },
+          "description": "Switch metadata entries with id, name, and string value."
+        },
+        "lang": {
+          "type": "string",
+          "description": "Switch locale, for example enUS, deDE, or frFR."
+        },
+        "files": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "localPath": {
+                "type": "string",
+                "description": "Local file inside SWITCH_UPLOAD_ROOTS."
+              },
+              "base64": {
+                "type": "string",
+                "description": "Base64-encoded bytes, including empty string for an empty file."
+              },
+              "filename": {
+                "type": "string",
+                "minLength": 1
+              },
+              "relativePath": {
+                "type": "string",
+                "description": "Relative path within a folder job; required for every file when submitting multiple files."
+              },
+              "mimeType": {
+                "type": "string"
+              }
+            },
+            "oneOf": [
+              {
+                "required": [
+                  "localPath"
+                ],
+                "not": {
+                  "required": [
+                    "base64"
+                  ]
+                }
+              },
+              {
+                "required": [
+                  "base64",
+                  "filename"
+                ],
+                "not": {
+                  "required": [
+                    "localPath"
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "flowId",
+        "objectId",
+        "jobName",
+        "files"
+      ]
+    },
+    "description": "Post Job.",
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "idempotentHint": false,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "switch_replace_job",
+    "operation": "ReplaceJob",
+    "method": "PUT",
+    "path": "/api/v1/job/:id",
+    "service": "switch",
+    "fixedQuery": {
+      "action": "replace"
+    },
+    "locations": {
+      "id": "path",
+      "updated": "body",
+      "lang": "query",
+      "files": "multipart",
+      "httpMethod": "local"
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "updated": {
+          "type": "string",
+          "description": "Existing job updated timestamp for optimistic concurrency. Omit to skip the relevance check."
+        },
+        "lang": {
+          "type": "string",
+          "description": "Switch locale, for example enUS, deDE, or frFR."
+        },
+        "files": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "localPath": {
+                "type": "string",
+                "description": "Local file inside SWITCH_UPLOAD_ROOTS."
+              },
+              "base64": {
+                "type": "string",
+                "description": "Base64-encoded bytes, including empty string for an empty file."
+              },
+              "filename": {
+                "type": "string",
+                "minLength": 1
+              },
+              "relativePath": {
+                "type": "string",
+                "description": "Relative path within a folder job; required for every file when submitting multiple files."
+              },
+              "mimeType": {
+                "type": "string"
+              }
+            },
+            "oneOf": [
+              {
+                "required": [
+                  "localPath"
+                ],
+                "not": {
+                  "required": [
+                    "base64"
+                  ]
+                }
+              },
+              {
+                "required": [
+                  "base64",
+                  "filename"
+                ],
+                "not": {
+                  "required": [
+                    "localPath"
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        "httpMethod": {
+          "type": "string",
+          "enum": [
+            "PUT",
+            "POST"
+          ],
+          "description": "PUT by default; POST is the documented alternative."
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "files"
+      ]
+    },
+    "description": "Replace Job.",
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "idempotentHint": false,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "switch_route_job",
+    "operation": "RouteJob",
+    "method": "PUT",
+    "path": "/api/v1/job/:id",
+    "service": "switch",
+    "fixedQuery": {
+      "action": "route"
+    },
+    "locations": {
+      "id": "path",
+      "updated": "body",
+      "connections": "body",
+      "metadata": "body",
+      "lang": "query"
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "updated": {
+          "type": "string",
+          "description": "Existing job updated timestamp for optimistic concurrency. Omit to skip the relevance check."
+        },
+        "connections": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Connection IDs to which the job should be routed."
+        },
+        "metadata": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "name",
+              "value"
+            ]
+          },
+          "description": "Switch metadata entries with id, name, and string value."
+        },
+        "lang": {
+          "type": "string",
+          "description": "Switch locale, for example enUS, deDE, or frFR."
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "connections"
+      ]
+    },
+    "description": "Route Job.",
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "idempotentHint": false,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "switch_unlock_job",
+    "operation": "UnlockJob",
+    "method": "PUT",
+    "path": "/api/v1/job/:id",
+    "service": "switch",
+    "fixedQuery": {
+      "action": "unlock"
+    },
+    "locations": {
+      "id": "path",
+      "check": "query",
+      "lang": "query"
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "check": {
+          "type": "boolean",
+          "description": "true checks unlock permission without unlocking; false or omitted attempts to unlock."
+        },
+        "lang": {
+          "type": "string",
+          "description": "Switch locale, for example enUS, deDE, or frFR."
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id"
+      ]
+    },
+    "description": "Unlock Job.",
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "idempotentHint": false,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "switch_rush_job",
+    "operation": "RushJob",
+    "method": "PUT",
+    "path": "/api/v1/processingjob/:processingId",
+    "service": "switch",
+    "fixedQuery": {
+      "action": "rush"
+    },
+    "locations": {
+      "processingId": "path",
+      "lang": "query"
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "processingId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "lang": {
+          "type": "string",
+          "description": "Switch locale, for example enUS, deDE, or frFR."
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "processingId"
+      ]
+    },
+    "description": "Rush Job.",
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "idempotentHint": false,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "switch_unrush_job",
+    "operation": "UnrushJob",
+    "method": "PUT",
+    "path": "/api/v1/processingjob/:processingId",
+    "service": "switch",
+    "fixedQuery": {
+      "action": "unrush"
+    },
+    "locations": {
+      "processingId": "path",
+      "lang": "query"
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "processingId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "lang": {
+          "type": "string",
+          "description": "Switch locale, for example enUS, deDE, or frFR."
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "processingId"
+      ]
+    },
+    "description": "Unrush Job.",
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "idempotentHint": false,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "switch_add_job_filter",
+    "operation": "AddJobFilter",
+    "method": "POST",
+    "path": "/api/v1/jobFilters",
+    "service": "switch",
+    "fixedQuery": {},
+    "locations": {
+      "name": "body",
+      "query": "body",
+      "visibility": "body",
+      "lang": "query"
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "query": {
+          "type": "string",
+          "description": "Switch filter expression encoded as a JSON string."
+        },
+        "visibility": {
+          "type": "boolean",
+          "description": "Whether the saved job filter is visible to the user."
+        },
+        "lang": {
+          "type": "string",
+          "description": "Switch locale, for example enUS, deDE, or frFR."
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "query"
+      ]
+    },
+    "description": "Add Job Filter.",
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "idempotentHint": false,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "switch_delete_job_filter",
+    "operation": "DeleteJobFilter",
+    "method": "DELETE",
+    "path": "/api/v1/jobFilters",
+    "service": "switch",
+    "fixedQuery": {},
+    "locations": {
+      "ids": "query",
+      "lang": "query"
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "ids": {
+          "type": "string",
+          "description": "Comma-separated identifiers. Omit only when the operation should affect or return all applicable items."
+        },
+        "lang": {
+          "type": "string",
+          "description": "Switch locale, for example enUS, deDE, or frFR."
+        }
+      },
+      "additionalProperties": false
+    },
+    "description": "Delete Job Filter. Omitting ids deletes ALL filters for the current user.",
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "idempotentHint": false,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "switch_edit_job_filter",
+    "operation": "EditJobFilter",
+    "method": "PUT",
+    "path": "/api/v1/jobFilters/:id",
+    "service": "switch",
+    "fixedQuery": {},
+    "locations": {
+      "id": "path",
+      "name": "body",
+      "query": "body",
+      "visibility": "body",
+      "lang": "query"
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "name": {
+          "type": "string"
+        },
+        "query": {
+          "type": "string",
+          "description": "Switch filter expression encoded as a JSON string."
+        },
+        "visibility": {
+          "type": "boolean",
+          "description": "Whether the saved job filter is visible to the user."
+        },
+        "lang": {
+          "type": "string",
+          "description": "Switch locale, for example enUS, deDE, or frFR."
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id"
+      ]
+    },
+    "description": "Edit Job Filter.",
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "idempotentHint": false,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "switch_get_job_filter",
+    "operation": "GetJobFilter",
+    "method": "GET",
+    "path": "/api/v1/jobFilters",
+    "service": "switch",
+    "fixedQuery": {},
+    "locations": {
+      "ids": "query",
+      "fields": "query",
+      "lang": "query",
+      "includePredefined": "query"
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "ids": {
+          "type": "string",
+          "description": "Comma-separated identifiers. Omit only when the operation should affect or return all applicable items."
+        },
+        "fields": {
+          "type": "string",
+          "description": "Comma-separated response field names; omitted means all available fields."
+        },
+        "lang": {
+          "type": "string",
+          "description": "Switch locale, for example enUS, deDE, or frFR."
+        },
+        "includePredefined": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "description": "Get Job Filter.",
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "switch_share_job_filter",
+    "operation": "ShareJobFilter",
+    "method": "PUT",
+    "path": "/api/v1/jobFilters/:id",
+    "service": "switch",
+    "fixedQuery": {
+      "action": "share"
+    },
+    "locations": {
+      "id": "path",
+      "users": "body",
+      "groups": "body",
+      "lang": "query"
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "users": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "groups": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "lang": {
+          "type": "string",
+          "description": "Switch locale, for example enUS, deDE, or frFR."
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id"
+      ]
+    },
+    "description": "Share Job Filter.",
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "idempotentHint": false,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "switch_unshare_job_filter",
+    "operation": "UnshareJobFilter",
+    "method": "PUT",
+    "path": "/api/v1/jobFilters/:id",
+    "service": "switch",
+    "fixedQuery": {
+      "action": "unshare"
+    },
+    "locations": {
+      "id": "path",
+      "users": "body",
+      "groups": "body",
+      "lang": "query"
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "users": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "groups": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "lang": {
+          "type": "string",
+          "description": "Switch locale, for example enUS, deDE, or frFR."
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id"
+      ]
+    },
+    "description": "Unshare Job Filter.",
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "idempotentHint": false,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "switch_get_jobs",
+    "operation": "GetJobs",
+    "method": "GET",
+    "path": "/api/v1/jobs",
+    "service": "switch",
+    "fixedQuery": {},
+    "locations": {
+      "fields": "query",
+      "filter": "query",
+      "sort": "query",
+      "limit": "query",
+      "lastUpdated": "query",
+      "data": "query",
+      "lang": "query"
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "fields": {
+          "type": "string",
+          "description": "Comma-separated response field names; omitted means all available fields."
+        },
+        "filter": {
+          "type": "string",
+          "description": "Saved filter ID or raw JSON filter string. Pass unescaped text; the client URL-encodes it once."
+        },
+        "sort": {
+          "type": "string",
+          "description": "Comma-separated sort keys; prefix a key with - for descending order."
+        },
+        "limit": {
+          "type": "number"
+        },
+        "lastUpdated": {
+          "type": "string",
+          "description": "ISO timestamp; retrieve only newer job updates."
+        },
+        "data": {
+          "type": "boolean",
+          "description": "false tests for matching jobs without retrieving the job list."
+        },
+        "lang": {
+          "type": "string",
+          "description": "Switch locale, for example enUS, deDE, or frFR."
+        }
+      },
+      "additionalProperties": false
+    },
+    "description": "Get Jobs.",
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "switch_dashboard_graphql",
+    "operation": "dashboardGraphQL",
+    "method": "POST",
+    "path": "/api/v1/graphql",
+    "service": "switch",
+    "fixedQuery": {},
+    "locations": {
+      "query": "body",
+      "variables": "body",
+      "operationName": "body"
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string",
+          "minLength": 1
+        },
+        "variables": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "operationName": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "query"
+      ]
+    },
+    "description": "dashboard Graph QL.",
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "idempotentHint": false,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "switch_add_message_filter",
+    "operation": "AddMessageFilter",
+    "method": "POST",
+    "path": "/api/v1/messageFilters",
+    "service": "switch",
+    "fixedQuery": {},
+    "locations": {
+      "name": "body",
+      "query": "body",
+      "lang": "query"
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "query": {
+          "type": "string",
+          "description": "Switch filter expression encoded as a JSON string."
+        },
+        "lang": {
+          "type": "string",
+          "description": "Switch locale, for example enUS, deDE, or frFR."
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "query"
+      ]
+    },
+    "description": "Add Message Filter.",
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "idempotentHint": false,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "switch_delete_message_filter",
+    "operation": "DeleteMessageFilter",
+    "method": "DELETE",
+    "path": "/api/v1/messageFilters",
+    "service": "switch",
+    "fixedQuery": {},
+    "locations": {
+      "ids": "query",
+      "lang": "query"
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "ids": {
+          "type": "string",
+          "description": "Comma-separated identifiers. Omit only when the operation should affect or return all applicable items."
+        },
+        "lang": {
+          "type": "string",
+          "description": "Switch locale, for example enUS, deDE, or frFR."
+        }
+      },
+      "additionalProperties": false
+    },
+    "description": "Delete Message Filter. Omitting ids deletes ALL filters for the current user.",
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "idempotentHint": false,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "switch_edit_message_filter",
+    "operation": "EditMessageFilter",
+    "method": "PUT",
+    "path": "/api/v1/messageFilters/:id",
+    "service": "switch",
+    "fixedQuery": {},
+    "locations": {
+      "id": "path",
+      "name": "body",
+      "query": "body",
+      "lang": "query"
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "name": {
+          "type": "string"
+        },
+        "query": {
+          "type": "string",
+          "description": "Switch filter expression encoded as a JSON string."
+        },
+        "lang": {
+          "type": "string",
+          "description": "Switch locale, for example enUS, deDE, or frFR."
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id"
+      ]
+    },
+    "description": "Edit Message Filter.",
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "idempotentHint": false,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "switch_get_message_filter",
+    "operation": "GetMessageFilter",
+    "method": "GET",
+    "path": "/api/v1/messageFilters",
+    "service": "switch",
+    "fixedQuery": {},
+    "locations": {
+      "ids": "query",
+      "fields": "query",
+      "lang": "query"
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "ids": {
+          "type": "string",
+          "description": "Comma-separated identifiers. Omit only when the operation should affect or return all applicable items."
+        },
+        "fields": {
+          "type": "string",
+          "description": "Comma-separated response field names; omitted means all available fields."
+        },
+        "lang": {
+          "type": "string",
+          "description": "Switch locale, for example enUS, deDE, or frFR."
+        }
+      },
+      "additionalProperties": false
+    },
+    "description": "Get Message Filter.",
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "switch_get_messages_list",
+    "operation": "GetMessagesList",
+    "method": "GET",
+    "path": "/api/v1/messages",
+    "service": "switch",
+    "fixedQuery": {},
+    "locations": {
+      "period": "query",
+      "timestamp": "query",
+      "flow": "query",
+      "type": "query",
+      "module": "query",
+      "element": "query",
+      "prefix": "query",
+      "job": "query",
+      "message": "query",
+      "filter": "query",
+      "limit": "query",
+      "sort": "query",
+      "range": "query",
+      "id": "query",
+      "lang": "query"
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "period": {
+          "type": "string",
+          "description": "Relative time window such as 2d or 2h."
+        },
+        "timestamp": {
+          "type": "string",
+          "description": "ISO timestamp or a comma-separated start/end interval; either bound may be omitted."
+        },
+        "flow": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "type": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "module": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "element": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "prefix": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "job": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "message": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "filter": {
+          "type": "string",
+          "description": "Saved filter ID or raw JSON filter string. Pass unescaped text; the client URL-encodes it once."
+        },
+        "limit": {
+          "type": "number"
+        },
+        "sort": {
+          "type": "string",
+          "description": "Comma-separated sort keys; prefix a key with - for descending order."
+        },
+        "range": {
+          "type": "string",
+          "description": "Result index interval, such as 40,60; this is not a message ID interval."
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "lang": {
+          "type": "string",
+          "description": "Switch locale, for example enUS, deDE, or frFR."
+        }
+      },
+      "additionalProperties": false
+    },
+    "description": "Get Messages List.",
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "switch_post_clear_messages",
+    "operation": "PostClearMessages",
+    "method": "POST",
+    "path": "/api/v1/messages/clear",
+    "service": "switch",
+    "fixedQuery": {},
+    "locations": {
+      "lang": "query"
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "lang": {
+          "type": "string",
+          "description": "Switch locale, for example enUS, deDE, or frFR."
+        }
+      },
+      "additionalProperties": false
+    },
+    "description": "Post Clear Messages. Clears the entire Switch message log.",
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "idempotentHint": false,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "switch_ping",
+    "operation": "Ping",
+    "method": "GET",
+    "path": "/api/v1/ping",
+    "service": "switch",
+    "fixedQuery": {},
+    "locations": {
+      "refresh": "query"
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "refresh": {
+          "type": "boolean",
+          "description": "true refreshes the Switch session; false only checks its status."
+        }
+      },
+      "additionalProperties": false
+    },
+    "description": "Ping.",
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "idempotentHint": false,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "switch_get_submitpoints",
+    "operation": "GetSubmitpoints",
+    "method": "GET",
+    "path": "/api/v1/submitpoints/:id",
+    "service": "switch",
+    "fixedQuery": {},
+    "locations": {
+      "id": "path",
+      "fields": "query",
+      "lang": "query"
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "fields": {
+          "type": "string",
+          "description": "Comma-separated response field names; omitted means all available fields."
+        },
+        "lang": {
+          "type": "string",
+          "description": "Switch locale, for example enUS, deDE, or frFR."
+        }
+      },
+      "additionalProperties": false
+    },
+    "description": "Get Submitpoints.",
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "switch_switch_helper_default_app",
+    "operation": "SwitchHelperDefaultApp",
+    "method": "GET",
+    "path": "/api/v1/defaultApp",
+    "service": "helper",
+    "fixedQuery": {},
+    "locations": {
+      "extension": "rawQuery"
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "extension": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "extension"
+      ]
+    },
+    "description": "Switch Helper Default App.",
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "switch_switch_helper_ping",
+    "operation": "SwitchHelperPing",
+    "method": "GET",
+    "path": "/api/v1/ping",
+    "service": "helper",
+    "fixedQuery": {},
+    "locations": {},
+    "inputSchema": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": false
+    },
+    "description": "Switch Helper Ping.",
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "switch_switch_helper_cancel_edit_job",
+    "operation": "SwitchHelperCancelEditJob",
+    "method": "POST",
+    "path": "/api/v1/cancelEditJob",
+    "service": "helper",
+    "fixedQuery": {},
+    "locations": {
+      "jobId": "rawQuery"
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "jobId": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "jobId"
+      ]
+    },
+    "description": "Switch Helper Cancel Edit Job.",
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "idempotentHint": false,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "switch_switch_helper_delete_select_job",
+    "operation": "SwitchHelperDeleteSelectJob",
+    "method": "DELETE",
+    "path": "/api/v1/selectJob",
+    "service": "helper",
+    "fixedQuery": {},
+    "locations": {
+      "submitId": "query",
+      "path": "query"
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "submitId": {
+          "type": "number",
+          "description": "Switch Helper selection ID, reused across selection, submission, and progress calls."
+        },
+        "path": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "submitId",
+        "path"
+      ]
+    },
+    "description": "Switch Helper Delete Select Job.",
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "idempotentHint": false,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "switch_switch_helper_edit_job",
+    "operation": "SwitchHelperEditJob",
+    "method": "POST",
+    "path": "/api/v1/editJob",
+    "service": "helper",
+    "fixedQuery": {},
+    "locations": {
+      "jobId": "body",
+      "jobName": "body",
+      "swsUrl": "body",
+      "token": "body",
+      "lang": "body"
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "jobId": {
+          "type": "string"
+        },
+        "jobName": {
+          "type": "string"
+        },
+        "swsUrl": {
+          "type": "string",
+          "description": "Defaults to the configured Switch session."
+        },
+        "token": {
+          "type": "string",
+          "description": "Defaults to the configured Switch session."
+        },
+        "lang": {
+          "type": "string",
+          "description": "Switch locale, for example enUS, deDE, or frFR."
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "jobId",
+        "jobName"
+      ]
+    },
+    "description": "Switch Helper Edit Job.",
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "idempotentHint": false,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "switch_switch_helper_job_in_edit",
+    "operation": "SwitchHelperJobInEdit",
+    "method": "GET",
+    "path": "/api/v1/jobInEdit",
+    "service": "helper",
+    "fixedQuery": {},
+    "locations": {
+      "jobId": "rawQuery"
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "jobId": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "jobId"
+      ]
+    },
+    "description": "Switch Helper Job In Edit.",
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "switch_switch_helper_replace_job",
+    "operation": "SwitchHelperReplaceJob",
+    "method": "PUT",
+    "path": "/api/v1/replaceJob",
+    "service": "helper",
+    "fixedQuery": {},
+    "locations": {
+      "jobId": "body",
+      "swsUrl": "body",
+      "token": "body",
+      "lang": "body",
+      "updated": "body"
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "jobId": {
+          "type": "string"
+        },
+        "swsUrl": {
+          "type": "string",
+          "description": "Defaults to the configured Switch session."
+        },
+        "token": {
+          "type": "string",
+          "description": "Defaults to the configured Switch session."
+        },
+        "lang": {
+          "type": "string",
+          "description": "Switch locale, for example enUS, deDE, or frFR."
+        },
+        "updated": {
+          "type": "string",
+          "description": "Existing job updated timestamp for optimistic concurrency. Omit to skip the relevance check."
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "jobId"
+      ]
+    },
+    "description": "Switch Helper Replace Job.",
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "idempotentHint": false,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "switch_switch_helper_select_job",
+    "operation": "SwitchHelperSelectJob",
+    "method": "GET",
+    "path": "/api/v1/selectJob",
+    "service": "helper",
+    "fixedQuery": {},
+    "locations": {
+      "jobFolder": "query",
+      "acceptFileTypes": "query",
+      "submitId": "query"
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "jobFolder": {
+          "type": "boolean"
+        },
+        "acceptFileTypes": {
+          "type": "string",
+          "description": "Comma-separated extensions accepted by the Helper file chooser."
+        },
+        "submitId": {
+          "type": "number",
+          "description": "Switch Helper selection ID, reused across selection, submission, and progress calls."
+        }
+      },
+      "additionalProperties": false
+    },
+    "description": "Switch Helper Select Job. Opens the native file chooser on the Helper machine.",
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "idempotentHint": false,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "switch_switch_helper_submit_job",
+    "operation": "SwitchHelperSubmitJob",
+    "method": "POST",
+    "path": "/api/v1/submitJob",
+    "service": "helper",
+    "fixedQuery": {},
+    "locations": {
+      "submitId": "body",
+      "swsUrl": "body",
+      "token": "body",
+      "flowId": "body",
+      "objectId": "body",
+      "jobName": "body",
+      "metadata": "body",
+      "lang": "body"
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "submitId": {
+          "type": "number",
+          "description": "Switch Helper selection ID, reused across selection, submission, and progress calls."
+        },
+        "swsUrl": {
+          "type": "string",
+          "description": "Defaults to the configured Switch session."
+        },
+        "token": {
+          "type": "string",
+          "description": "Defaults to the configured Switch session."
+        },
+        "flowId": {
+          "type": "string"
+        },
+        "objectId": {
+          "type": "string"
+        },
+        "jobName": {
+          "type": "string"
+        },
+        "metadata": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "name",
+              "value"
+            ]
+          },
+          "description": "Switch metadata entries with id, name, and string value."
+        },
+        "lang": {
+          "type": "string",
+          "description": "Switch locale, for example enUS, deDE, or frFR."
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "submitId",
+        "flowId",
+        "objectId"
+      ]
+    },
+    "description": "Switch Helper Submit Job.",
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "idempotentHint": false,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "switch_switch_helper_submit_progress",
+    "operation": "SwitchHelperSubmitProgress",
+    "method": "GET",
+    "path": "/api/v1/progress",
+    "service": "helper",
+    "fixedQuery": {},
+    "locations": {
+      "submitId": "query"
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "submitId": {
+          "type": "number",
+          "description": "Switch Helper selection ID, reused across selection, submission, and progress calls."
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "submitId"
+      ]
+    },
+    "description": "Switch Helper Submit Progress.",
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "switch_get_thumbnails",
+    "operation": "GetThumbnails",
+    "method": "GET",
+    "path": "/api/v1/thumbnails",
+    "service": "switch",
+    "fixedQuery": {},
+    "locations": {
+      "jobIds": "query",
+      "jobProcessingIds": "query",
+      "lang": "query"
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "jobIds": {
+          "type": "string",
+          "description": "Comma-separated job IDs. Choose this or jobProcessingIds, never both.",
+          "minLength": 1
+        },
+        "jobProcessingIds": {
+          "type": "string",
+          "description": "Comma-separated processing IDs. Choose this or jobIds, never both.",
+          "minLength": 1
+        },
+        "lang": {
+          "type": "string",
+          "description": "Switch locale, for example enUS, deDE, or frFR."
+        }
+      },
+      "additionalProperties": false,
+      "oneOf": [
+        {
+          "required": [
+            "jobIds"
+          ],
+          "not": {
+            "required": [
+              "jobProcessingIds"
+            ]
+          }
+        },
+        {
+          "required": [
+            "jobProcessingIds"
+          ],
+          "not": {
+            "required": [
+              "jobIds"
+            ]
+          }
+        }
+      ]
+    },
+    "description": "Get Thumbnails.",
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true
+    }
+  },
+  {
+    "name": "switch_get_groups",
+    "operation": "GetGroups",
+    "method": "GET",
+    "path": "/api/v1/userpermissions/groups",
+    "service": "switch",
+    "fixedQuery": {},
+    "locations": {
+      "lang": "query"
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "lang": {
+          "type": "string",
+          "description": "Switch locale, for example enUS, deDE, or frFR."
+        }
+      },
+      "additionalProperties": false
+    },
+    "description": "Get Groups.",
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "idempotentHint": true,
+      "openWorldHint": true
+    }
+  }
+]

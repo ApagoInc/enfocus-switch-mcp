@@ -1,0 +1,97 @@
+{
+  "timestamp": "2026-09-16T16:09:23.518Z",
+  "transport": "MCP stdio \u2192 live Switch HTTP",
+  "checks": [
+    {
+      "operation": "tools/list",
+      "result": "passed",
+      "count": 46
+    },
+    {
+      "tool": "switch_login_query",
+      "result": "passed"
+    },
+    {
+      "tool": "switch_ping",
+      "result": "passed"
+    },
+    {
+      "tool": "switch_get_flows",
+      "result": "passed",
+      "count": 46
+    },
+    {
+      "tool": "switch_get_submitpoints",
+      "result": "passed",
+      "count": 1
+    },
+    {
+      "tool": "switch_get_groups",
+      "result": "passed"
+    },
+    {
+      "tool": "switch_get_job_filter",
+      "result": "passed"
+    },
+    {
+      "tool": "switch_get_message_filter",
+      "result": "passed"
+    },
+    {
+      "tool": "switch_get_messages_list",
+      "result": "passed"
+    },
+    {
+      "tool": "switch_dashboard_graphql",
+      "result": "permission-denied",
+      "httpStatus": 200
+    },
+    {
+      "tool": "switch_get_jobs",
+      "result": "passed",
+      "count": 2
+    },
+    {
+      "tool": "switch_get_job_metadata",
+      "result": "passed"
+    },
+    {
+      "tool": "switch_get_thumbnails",
+      "result": "passed",
+      "count": 2
+    },
+    {
+      "tool": "switch_job_download",
+      "result": "not-found-or-inaccessible",
+      "httpStatus": 404
+    },
+    {
+      "tool": "switch_job_download",
+      "result": "not-found-or-inaccessible",
+      "httpStatus": 404
+    },
+    {
+      "tool": "switch_logout_query",
+      "result": "passed"
+    }
+  ],
+  "submissions": [],
+  "separateDirectClientSubmissions": [
+    {
+      "jobName": "mcp-live-test-20260916-single.txt",
+      "jobId": "6aaabed215fc005dd2eb27df",
+      "files": 1,
+      "size": 27,
+      "httpStatus": 200,
+      "observedOutcome": "Moved job to Folder 1"
+    },
+    {
+      "jobName": "mcp-live-test-20260916-folder",
+      "jobId": "6aaabed215fc005dd2eb27e0",
+      "files": 2,
+      "size": 39,
+      "httpStatus": 200,
+      "observedOutcome": "Moved job to Folder 1"
+    }
+  ]
+}

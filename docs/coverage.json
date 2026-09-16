@@ -1,0 +1,331 @@
+{
+  "sources": [
+    "https://cdn.enfocus.com/manuals/DeveloperGuide/WebServices/24/api_data.json",
+    "https://cdn-www.enfocus.com/manuals/DeveloperGuide/WebServices/24.1-zip/SwitchWebServicesRESTAPIDocumentation.zip"
+  ],
+  "apiDataSha256": "a6201c4685f5c032b9e48b050255088701c95bf4d59688885ed81ffd328ba8b7",
+  "operations": [
+    {
+      "operation": "LoginQuery",
+      "name": "switch_login_query",
+      "method": "POST",
+      "service": "switch",
+      "path": "/login"
+    },
+    {
+      "operation": "LogoutQuery",
+      "name": "switch_logout_query",
+      "method": "GET",
+      "service": "switch",
+      "path": "/logout"
+    },
+    {
+      "operation": "AddAnnotations",
+      "name": "switch_add_annotations",
+      "method": "POST",
+      "service": "switch",
+      "path": "/api/v1/flows/:id/annotations"
+    },
+    {
+      "operation": "EditAnnotation",
+      "name": "switch_edit_annotation",
+      "method": "PUT",
+      "service": "switch",
+      "path": "/api/v1/flows/:id/annotations/:annotId"
+    },
+    {
+      "operation": "GetFlows",
+      "name": "switch_get_flows",
+      "method": "GET",
+      "service": "switch",
+      "path": "/api/v1/flows"
+    },
+    {
+      "operation": "RemoveAnnotations",
+      "name": "switch_remove_annotations",
+      "method": "DELETE",
+      "service": "switch",
+      "path": "/api/v1/flows/:id/annotations/:annotId"
+    },
+    {
+      "operation": "StartFlow",
+      "name": "switch_start_flow",
+      "method": "PUT",
+      "service": "switch",
+      "path": "/api/v1/flows/:id"
+    },
+    {
+      "operation": "StopFlow",
+      "name": "switch_stop_flow",
+      "method": "PUT",
+      "service": "switch",
+      "path": "/api/v1/flows/:id"
+    },
+    {
+      "operation": "GetJobMetadata",
+      "name": "switch_get_job_metadata",
+      "method": "GET",
+      "service": "switch",
+      "path": "/api/v1/job/metadata"
+    },
+    {
+      "operation": "JobDownload",
+      "name": "switch_job_download",
+      "method": "GET",
+      "service": "switch",
+      "path": "/api/v1/job/:id"
+    },
+    {
+      "operation": "JobReportDownload",
+      "name": "switch_job_report_download",
+      "method": "GET",
+      "service": "switch",
+      "path": "/api/v1/job/report/:id"
+    },
+    {
+      "operation": "LockJob",
+      "name": "switch_lock_job",
+      "method": "PUT",
+      "service": "switch",
+      "path": "/api/v1/job/:id"
+    },
+    {
+      "operation": "PostJob",
+      "name": "switch_post_job",
+      "method": "POST",
+      "service": "switch",
+      "path": "/api/v1/job"
+    },
+    {
+      "operation": "ReplaceJob",
+      "name": "switch_replace_job",
+      "method": "PUT",
+      "service": "switch",
+      "path": "/api/v1/job/:id"
+    },
+    {
+      "operation": "RouteJob",
+      "name": "switch_route_job",
+      "method": "PUT",
+      "service": "switch",
+      "path": "/api/v1/job/:id"
+    },
+    {
+      "operation": "UnlockJob",
+      "name": "switch_unlock_job",
+      "method": "PUT",
+      "service": "switch",
+      "path": "/api/v1/job/:id"
+    },
+    {
+      "operation": "RushJob",
+      "name": "switch_rush_job",
+      "method": "PUT",
+      "service": "switch",
+      "path": "/api/v1/processingjob/:processingId"
+    },
+    {
+      "operation": "UnrushJob",
+      "name": "switch_unrush_job",
+      "method": "PUT",
+      "service": "switch",
+      "path": "/api/v1/processingjob/:processingId"
+    },
+    {
+      "operation": "AddJobFilter",
+      "name": "switch_add_job_filter",
+      "method": "POST",
+      "service": "switch",
+      "path": "/api/v1/jobFilters"
+    },
+    {
+      "operation": "DeleteJobFilter",
+      "name": "switch_delete_job_filter",
+      "method": "DELETE",
+      "service": "switch",
+      "path": "/api/v1/jobFilters"
+    },
+    {
+      "operation": "EditJobFilter",
+      "name": "switch_edit_job_filter",
+      "method": "PUT",
+      "service": "switch",
+      "path": "/api/v1/jobFilters/:id"
+    },
+    {
+      "operation": "GetJobFilter",
+      "name": "switch_get_job_filter",
+      "method": "GET",
+      "service": "switch",
+      "path": "/api/v1/jobFilters"
+    },
+    {
+      "operation": "ShareJobFilter",
+      "name": "switch_share_job_filter",
+      "method": "PUT",
+      "service": "switch",
+      "path": "/api/v1/jobFilters/:id"
+    },
+    {
+      "operation": "UnshareJobFilter",
+      "name": "switch_unshare_job_filter",
+      "method": "PUT",
+      "service": "switch",
+      "path": "/api/v1/jobFilters/:id"
+    },
+    {
+      "operation": "GetJobs",
+      "name": "switch_get_jobs",
+      "method": "GET",
+      "service": "switch",
+      "path": "/api/v1/jobs"
+    },
+    {
+      "operation": "dashboardGraphQL",
+      "name": "switch_dashboard_graphql",
+      "method": "POST",
+      "service": "switch",
+      "path": "/api/v1/graphql"
+    },
+    {
+      "operation": "AddMessageFilter",
+      "name": "switch_add_message_filter",
+      "method": "POST",
+      "service": "switch",
+      "path": "/api/v1/messageFilters"
+    },
+    {
+      "operation": "DeleteMessageFilter",
+      "name": "switch_delete_message_filter",
+      "method": "DELETE",
+      "service": "switch",
+      "path": "/api/v1/messageFilters"
+    },
+    {
+      "operation": "EditMessageFilter",
+      "name": "switch_edit_message_filter",
+      "method": "PUT",
+      "service": "switch",
+      "path": "/api/v1/messageFilters/:id"
+    },
+    {
+      "operation": "GetMessageFilter",
+      "name": "switch_get_message_filter",
+      "method": "GET",
+      "service": "switch",
+      "path": "/api/v1/messageFilters"
+    },
+    {
+      "operation": "GetMessagesList",
+      "name": "switch_get_messages_list",
+      "method": "GET",
+      "service": "switch",
+      "path": "/api/v1/messages"
+    },
+    {
+      "operation": "PostClearMessages",
+      "name": "switch_post_clear_messages",
+      "method": "POST",
+      "service": "switch",
+      "path": "/api/v1/messages/clear"
+    },
+    {
+      "operation": "Ping",
+      "name": "switch_ping",
+      "method": "GET",
+      "service": "switch",
+      "path": "/api/v1/ping"
+    },
+    {
+      "operation": "GetSubmitpoints",
+      "name": "switch_get_submitpoints",
+      "method": "GET",
+      "service": "switch",
+      "path": "/api/v1/submitpoints/:id"
+    },
+    {
+      "operation": "SwitchHelperDefaultApp",
+      "name": "switch_switch_helper_default_app",
+      "method": "GET",
+      "service": "helper",
+      "path": "/api/v1/defaultApp"
+    },
+    {
+      "operation": "SwitchHelperPing",
+      "name": "switch_switch_helper_ping",
+      "method": "GET",
+      "service": "helper",
+      "path": "/api/v1/ping"
+    },
+    {
+      "operation": "SwitchHelperCancelEditJob",
+      "name": "switch_switch_helper_cancel_edit_job",
+      "method": "POST",
+      "service": "helper",
+      "path": "/api/v1/cancelEditJob"
+    },
+    {
+      "operation": "SwitchHelperDeleteSelectJob",
+      "name": "switch_switch_helper_delete_select_job",
+      "method": "DELETE",
+      "service": "helper",
+      "path": "/api/v1/selectJob"
+    },
+    {
+      "operation": "SwitchHelperEditJob",
+      "name": "switch_switch_helper_edit_job",
+      "method": "POST",
+      "service": "helper",
+      "path": "/api/v1/editJob"
+    },
+    {
+      "operation": "SwitchHelperJobInEdit",
+      "name": "switch_switch_helper_job_in_edit",
+      "method": "GET",
+      "service": "helper",
+      "path": "/api/v1/jobInEdit"
+    },
+    {
+      "operation": "SwitchHelperReplaceJob",
+      "name": "switch_switch_helper_replace_job",
+      "method": "PUT",
+      "service": "helper",
+      "path": "/api/v1/replaceJob"
+    },
+    {
+      "operation": "SwitchHelperSelectJob",
+      "name": "switch_switch_helper_select_job",
+      "method": "GET",
+      "service": "helper",
+      "path": "/api/v1/selectJob"
+    },
+    {
+      "operation": "SwitchHelperSubmitJob",
+      "name": "switch_switch_helper_submit_job",
+      "method": "POST",
+      "service": "helper",
+      "path": "/api/v1/submitJob"
+    },
+    {
+      "operation": "SwitchHelperSubmitProgress",
+      "name": "switch_switch_helper_submit_progress",
+      "method": "GET",
+      "service": "helper",
+      "path": "/api/v1/progress"
+    },
+    {
+      "operation": "GetThumbnails",
+      "name": "switch_get_thumbnails",
+      "method": "GET",
+      "service": "switch",
+      "path": "/api/v1/thumbnails"
+    },
+    {
+      "operation": "GetGroups",
+      "name": "switch_get_groups",
+      "method": "GET",
+      "service": "switch",
+      "path": "/api/v1/userpermissions/groups"
+    }
+  ]
+}

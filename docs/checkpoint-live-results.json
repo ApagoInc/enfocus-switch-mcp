@@ -1,0 +1,108 @@
+{
+  "date": "2026-09-16",
+  "transport": "MCP stdio \u2192 live Switch REST API",
+  "flow": {
+    "name": "API Submit test",
+    "id": "25"
+  },
+  "submitPoint": {
+    "name": "Test API submit",
+    "id": "2"
+  },
+  "checkpoint": {
+    "name": "Test API checkpoint",
+    "id": "15"
+  },
+  "accessIssueResolvedByUser": true,
+  "checks": {
+    "requiredSubmitMetadata": "passed: five field types accepted",
+    "requiredCheckpointMetadata": "passed: five fields accepted on both routes",
+    "singleDownload": "passed: exact bytes",
+    "folderDownload": "passed: ZIP integrity, exactly two files, nested paths and exact bytes",
+    "lock": "passed: readback locked true",
+    "checkOnlyUnlock": "passed: readback still locked",
+    "unlock": "passed: readback locked false",
+    "replacement": "passed: current updated timestamp and verified downloaded replacement bytes",
+    "approveRoute": "passed: connection 18; completed; logged destination Approve",
+    "rejectRoute": "passed: connection 20; completed; logged destination Reject",
+    "logout": "passed"
+  },
+  "jobs": [
+    {
+      "id": "6aaac50415fc005dd2eb28c6",
+      "name": "mcp-checkpoint-20260916-approve.txt",
+      "connectionId": "18",
+      "destination": "Approve",
+      "status": "completed"
+    },
+    {
+      "id": "6aaac50415fc005dd2eb28c7",
+      "name": "mcp-checkpoint-20260916-reject-folder",
+      "connectionId": "20",
+      "destination": "Reject",
+      "status": "completed"
+    }
+  ],
+  "downloadVerification": {
+    "originalFile": {
+      "bytes": 27,
+      "sha256": "d894c6e133355f6c9a954c674dbd7c739668c298aeb0f6758cb71a96d4c8e534"
+    },
+    "folderArchive": {
+      "bytes": 909,
+      "sha256": "ce720ec8b4983a2b2ad6cf47ad708d74433bc41ed55412b1be9428120a0be582"
+    },
+    "replacementFile": {
+      "bytes": 37,
+      "sha256": "d525f4127cda63be1d42c4cb274b1575942ecf415695ba723c3f2a784f8d1321"
+    }
+  },
+  "limitations": [
+    "Report download not tested: no report configured.",
+    "Downstream metadata dataset persistence not independently inspected."
+  ],
+  "flowControlAttempt": {
+    "flowId": "25",
+    "initialStatus": "running",
+    "stop": {
+      "httpStatus": 403,
+      "result": "permission-denied"
+    },
+    "start": {
+      "httpStatus": 403,
+      "result": "permission-denied"
+    },
+    "observedFinalStatus": "running",
+    "successfulCycleVerified": false
+  },
+  "flowControlRetest": {
+    "date": "2026-09-16",
+    "transport": "MCP stdio \u2192 live Switch REST API",
+    "flow": {
+      "id": "25",
+      "name": "API Submit test"
+    },
+    "administratorAccess": true,
+    "verifiedStates": [
+      "running",
+      "stopped",
+      "running"
+    ],
+    "stop": {
+      "result": "passed",
+      "response": {
+        "status": true
+      }
+    },
+    "start": {
+      "result": "passed",
+      "response": {
+        "status": true,
+        "flowStatus": "running"
+      }
+    },
+    "logout": "passed",
+    "finalStatus": "running",
+    "otherFlowsModified": false
+  }
+}
